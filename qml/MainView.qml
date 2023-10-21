@@ -88,7 +88,7 @@ Page {
 
             TextField {
                 id: input
-                visible: root.isIn && CommandLine.usePam
+                visible: root.isIn
                 Layout.alignment: Qt.AlignHCenter
                 text: CommandLine.password
                 placeholderText: "Password"
@@ -124,14 +124,6 @@ Page {
 
             Item {
                 Layout.fillHeight: true
-            }
-
-            Label {
-                visible: MediaPlayerBackend.hasMedia
-                text: MediaPlayerBackend.currentDisplayName
-                Layout.alignment: Qt.AlignHCenter
-                font.pointSize: 13
-                font.bold: true
             }
 
             Item {
