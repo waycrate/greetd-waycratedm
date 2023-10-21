@@ -1,0 +1,28 @@
+_pkgname=waycratelock
+pkgname=waycratelock-git
+pkgver=r43.d9f3b05
+pkgrel=1
+pkgdesc="waycratelock"
+url="https://github.com/waycrate/waycratelock"
+arch=('x86_64' 'aarch64')
+license=('GPL')
+makedepends=('git' 'ninja' 'cmake' 'wayland-protocols' 'session-lock-qt')
+depends=('qt6-wayland' 'qt6-base')
+source=("source.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cmake -GNinja \
+        -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+        -DCMAKE_INSTALL_PREFIX=/usr .
+  ninja
+}
+
+package() {
+  DESTDIR="$pkgdir" ninja install
+}
+
+pkgver() {
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+}
+

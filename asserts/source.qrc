@@ -1,0 +1,12 @@
+<!DOCTYPE RCC>
+<RCC>
+    <qresource prefix="/">
+        <file>image/center.png</file>
+        <file>image/hour.png</file>
+        <file>image/minute.png</file>
+        <file>image/second.png</file>
+        <file>image/clock.png</file>
+        <file>image/clock-night.png</file>
+        <file>image/gangdamu.png</file>
+    </qresource>
+</RCC>
