@@ -47,6 +47,11 @@ Page {
         minutes = date.getMinutes();
     }
 
+    TimePanel {
+        x: 30
+        y: 30
+    }
+
     MouseArea {
         anchors.fill: parent
         hoverEnabled: true
@@ -76,10 +81,6 @@ Page {
 
             Item {
                 Layout.fillHeight: true
-            }
-
-            TimePanel {
-                Layout.alignment: Qt.AlignHCenter
             }
 
             Item {
