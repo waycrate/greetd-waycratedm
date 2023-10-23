@@ -142,6 +142,7 @@ CommandLine::handleSuccessed()
         break;
     }
 }
+
 void
 CommandLine::handleAuthError()
 {

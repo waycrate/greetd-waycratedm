@@ -46,6 +46,8 @@ qt_add_qml_module(waycratedm
   SOURCES
     src/CommandLine.h
     src/CommandLine.cpp
+    src/DesktopListModel.h
+    src/DesktopListModel.cpp
   QML_FILES
     qml/main.qml
     qml/TimePanel.qml

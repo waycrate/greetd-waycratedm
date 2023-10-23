@@ -103,6 +103,7 @@ Page {
                 placeholderText: "User"
                 Layout.preferredWidth: 250
             }
+
             TextField {
                 id: input
                 visible: root.isIn
@@ -141,6 +142,51 @@ Page {
 
             Item {
                 Layout.fillHeight: true
+            }
+
+            Item {
+                Layout.preferredHeight: 40
+            }
+
+            RowLayout {
+                Layout.alignment: Qt.AlignHCenter
+                Button {
+                    icon.name: "go-previous"
+                    onClicked: {
+                        if (view.currentIndex === 0) {
+                            return;
+                        }
+                        view.currentIndex -= 1;
+                    }
+                }
+                SwipeView {
+                    id: view
+                    spacing: 10
+
+                    Repeater {
+                        model: DesktopModel
+                        Button {
+                            text: name
+                        }
+                    }
+                }
+                Button {
+                    icon.name: "go-next"
+                    onClicked: {
+                        if (view.currentIndex >= view.count - 1) {
+                            return;
+                        }
+                        view.currentIndex += 1;
+                    }
+                }
+            }
+            PageIndicator {
+                id: indicator
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: 100
+
+                count: view.count
+                currentIndex: view.currentIndex
             }
 
             Item {
