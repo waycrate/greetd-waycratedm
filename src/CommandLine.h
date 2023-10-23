@@ -9,11 +9,6 @@ class CommandLine final : public QObject
     Q_OBJECT
     QML_ELEMENT
     QML_SINGLETON
-    struct LoginStatus
-    {
-        bool successed;
-        QString error;
-    };
 
 public:
     explicit CommandLine(QObject *parent = nullptr);
@@ -52,7 +47,7 @@ signals:
 private:
     void connectToGreetd();
     void tryLogin();
-    QByteArray roundtrip(const QString &payload);
+    void roundtrip(const QString &payload);
 
 private:
     QString m_currentDate;

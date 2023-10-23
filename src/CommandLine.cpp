@@ -86,17 +86,15 @@ CommandLine::tryLogin()
 
     json.setObject(QJsonObject::fromVariantMap(request));
 
-    QByteArray response = roundtrip(json.toJson().simplified());
+    roundtrip(json.toJson().simplified());
 }
 
-QByteArray
+void
 CommandLine::roundtrip(const QString &payload)
 {
     qint32 length = payload.length();
     m_greetd->write((const char *)&length, sizeof(length));
     m_greetd->write(payload.toUtf8());
-
-    return QByteArray();
 }
 
 void

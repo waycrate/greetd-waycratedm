@@ -1,5 +1,5 @@
 import QtQuick
-import WayCrateLock
+import WayCrateDM
 
 Window {
     id: w

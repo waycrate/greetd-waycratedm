@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(waycratelock
+project(waycratedm
   VERSION 0.1
   LANGUAGES CXX
 )
@@ -31,17 +31,17 @@ find_package(SessionLockQt REQUIRED)
 
 find_package(PkgConfig REQUIRED)
 
-qt_add_executable(waycratelock
+qt_add_executable(waycratedm
   src/main.cpp
   asserts/source.qrc
 )
 
-target_include_directories(waycratelock PUBLIC
+target_include_directories(waycratedm PUBLIC
   ${CMAKE_SOURCE_DIR}/src
 )
 
-qt_add_qml_module(waycratelock
-  URI WayCrateLock
+qt_add_qml_module(waycratedm
+  URI WayCrateDM
   VERSION 1.0
   SOURCES
     src/CommandLine.h
@@ -52,7 +52,7 @@ qt_add_qml_module(waycratelock
     qml/MainView.qml
 )
 
-target_link_libraries(waycratelock
+target_link_libraries(waycratedm
   PRIVATE
   Qt6::Quick
   Qt6::WaylandClient
@@ -60,6 +60,5 @@ target_link_libraries(waycratelock
   Qt6::Concurrent
   SessionLockQtInterface)
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/waycratelock DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/pam.d)
 
-install(TARGETS waycratelock DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(TARGETS waycratedm DESTINATION ${CMAKE_INSTALL_BINDIR})

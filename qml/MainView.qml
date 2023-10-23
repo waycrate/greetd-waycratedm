@@ -1,7 +1,7 @@
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick
-import WayCrateLock
+import WayCrateDM
 
 Page {
     id: root

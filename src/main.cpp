@@ -22,7 +22,7 @@ main(int argc, char *argv[])
     auto screens = QGuiApplication::screens();
 
     QQmlApplicationEngine engine;
-    const QUrl url(u"qrc:/WayCrateLock/qml/main.qml"_qs);
+    const QUrl url(u"qrc:/WayCrateDM/qml/main.qml"_qs);
     QObject::connect(
       &engine,
       &QQmlApplicationEngine::objectCreated,
