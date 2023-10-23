@@ -60,14 +60,13 @@ CommandLine::handleDataRead()
 {
     QByteArray data = m_greetd->readAll();
     data.remove(0, 4);
-    qDebug() << data;
     QJsonObject document = QJsonDocument::fromJson(data).object();
     QString authtype     = document["type"].toString();
 
     if (authtype == "auth_message") {
         QString auth_message_type = document["auth_message_type"].toString();
         if (auth_message_type == "secret") {
-            handleAuthMessage();
+            handleAuthPasswordMessage();
             return;
         } else {
             // NOTE: I DO NOT CARE
@@ -139,13 +138,13 @@ CommandLine::handleAuthError()
 }
 
 void
-CommandLine::handleAuthMessage()
+CommandLine::handleAuthPasswordMessage()
 {
     m_status = LoginStatus::TryToLoginSession;
     QVariantMap request;
 
     request["type"]     = "post_auth_message_response";
-    request["response"] = "xxxx";
+    request["response"] = m_password;
     QJsonDocument json;
 
     json.setObject(QJsonObject::fromVariantMap(request));

@@ -58,7 +58,7 @@ signals:
 
 private slots:
     void handleDataRead();
-    void handleAuthMessage();
+    void handleAuthPasswordMessage();
     void handleAuthMessageNone();
 
     void handleAuthError();
