@@ -25,6 +25,7 @@ CommandLine::CommandLine(QObject *parent)
   , m_backgroundImagePath(QUrl("qrc:/image/gangdamu.png"))
   , m_opacity(0.6)
   , m_greetd(nullptr)
+  , m_status(LoginStatus::Start)
 {
     m_userName = QString::fromStdString(getlogin());
     connectToGreetd();
@@ -51,16 +52,104 @@ CommandLine::connectToGreetd()
     m_greetd->connectToServer(path, QIODevice::ReadWrite | QIODevice::Unbuffered);
     m_greetd->waitForConnected();
 
+    connect(m_greetd, &QLocalSocket::readyRead, this, &CommandLine::handleDataRead);
+}
+
+void
+CommandLine::handleDataRead()
+{
+    QByteArray data = m_greetd->readAll();
+    data.remove(0, 4);
+    qDebug() << data;
+    QJsonObject document = QJsonDocument::fromJson(data).object();
+    QString authtype     = document["type"].toString();
+
+    if (authtype == "auth_message") {
+        QString auth_message_type = document["auth_message_type"].toString();
+        if (auth_message_type == "secret") {
+            handleAuthMessage();
+            return;
+        } else {
+            // NOTE: I DO NOT CARE
+            handleAuthMessageNone();
+            return;
+        }
+    } else if (authtype == "error") {
+        QString error_type  = document["error_type"].toString();
+        QString description = document["description"].toString();
+        m_errorMessage      = QString("%1: %2").arg(error_type).arg(description);
+        Q_EMIT errorMessageChanged();
+        handleAuthError();
+        return;
+    }
+}
+
+void
+CommandLine::handleAuthMessageNone()
+{
     QVariantMap request;
 
-    request["type"]     = "create_session";
-    request["username"] = "testAccount";
+    request["type"] = "post_auth_message_response";
     QJsonDocument json;
+
     json.setObject(QJsonObject::fromVariantMap(request));
-
     roundtrip(json.toJson().simplified());
+}
 
-    connect(m_greetd, &QLocalSocket::readyRead, this, [this] { qDebug() << m_greetd->readAll(); });
+void
+CommandLine::handleSuccessed()
+{
+    switch (m_status) {
+    case Errored: {
+        m_status = CancelSessionSuccessed;
+        break;
+    }
+    case TryToLoginSession: {
+        m_status = TryToStartSession;
+        QVariantMap request;
+
+        request["type"] = "start_session";
+        request["cmd"]  = "xxxxx";
+        request["env"]  = QJsonArray();
+        QJsonDocument json;
+
+        json.setObject(QJsonObject::fromVariantMap(request));
+        roundtrip(json.toJson().simplified());
+        break;
+    }
+    case TryToStartSession: {
+        m_status = LoginSuccessed;
+        UnLock();
+    }
+    default:
+        break;
+    }
+}
+void
+CommandLine::handleAuthError()
+{
+    m_status = LoginStatus::Errored;
+    QVariantMap request;
+
+    request["type"] = "cancel_session";
+    QJsonDocument json;
+
+    json.setObject(QJsonObject::fromVariantMap(request));
+    roundtrip(json.toJson().simplified());
+}
+
+void
+CommandLine::handleAuthMessage()
+{
+    m_status = LoginStatus::TryToLoginSession;
+    QVariantMap request;
+
+    request["type"]     = "post_auth_message_response";
+    request["response"] = "xxxx";
+    QJsonDocument json;
+
+    json.setObject(QJsonObject::fromVariantMap(request));
+    roundtrip(json.toJson().simplified());
 }
 
 void

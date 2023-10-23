@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QJsonObject>
 #include <QLocalSocket>
 #include <QObject>
 #include <QQmlEngine>
@@ -9,6 +10,17 @@ class CommandLine final : public QObject
     Q_OBJECT
     QML_ELEMENT
     QML_SINGLETON
+
+    enum LoginStatus
+    {
+        Start,
+        CreateSessionSuccessed,
+        TryToLoginSession,
+        TryToStartSession,
+        LoginSuccessed,
+        CancelSessionSuccessed,
+        Errored,
+    };
 
 public:
     explicit CommandLine(QObject *parent = nullptr);
@@ -44,6 +56,14 @@ signals:
     void opacityChanged();
     void backgroundChanged();
 
+private slots:
+    void handleDataRead();
+    void handleAuthMessage();
+    void handleAuthMessageNone();
+
+    void handleAuthError();
+    void handleSuccessed();
+
 private:
     void connectToGreetd();
     void tryLogin();
@@ -57,4 +77,5 @@ private:
     QUrl m_backgroundImagePath;
     double m_opacity;
     QLocalSocket *m_greetd;
+    LoginStatus m_status;
 };
