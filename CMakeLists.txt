@@ -30,7 +30,6 @@ find_package(tomlplusplus REQUIRED)
 find_package(SessionLockQt REQUIRED)
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(PAM pam pam_misc pamc REQUIRED IMPORTED_TARGET)
 
 qt_add_executable(waycratelock
   src/main.cpp
@@ -59,8 +58,7 @@ target_link_libraries(waycratelock
   Qt6::WaylandClient
   Qt6::QuickControls2
   Qt6::Concurrent
-  SessionLockQtInterface
-  PkgConfig::PAM)
+  SessionLockQtInterface)
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/waycratelock DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/pam.d)
 

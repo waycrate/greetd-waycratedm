@@ -1,14 +1,19 @@
 #pragma once
 
+#include <QLocalSocket>
 #include <QObject>
 #include <QQmlEngine>
-#include <security/pam_appl.h>
 
 class CommandLine final : public QObject
 {
     Q_OBJECT
     QML_ELEMENT
     QML_SINGLETON
+    struct LoginStatus
+    {
+        bool successed;
+        QString error;
+    };
 
 public:
     explicit CommandLine(QObject *parent = nullptr);
@@ -45,11 +50,16 @@ signals:
     void backgroundChanged();
 
 private:
+    void connectToGreetd();
+    void tryLogin();
+    QByteArray roundtrip(const QString &payload);
+
+private:
     QString m_currentDate;
     QString m_password;
     QString m_userName;
     QString m_errorMessage;
-    pam_handle_t *m_handle;
     QUrl m_backgroundImagePath;
     double m_opacity;
+    QLocalSocket *m_greetd;
 };
