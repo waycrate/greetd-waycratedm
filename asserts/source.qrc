@@ -8,5 +8,6 @@
         <file>image/clock.png</file>
         <file>image/clock-night.png</file>
         <file>image/gangdamu.png</file>
+        <file>image/account.svg</file>
     </qresource>
 </RCC>

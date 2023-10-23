@@ -57,12 +57,10 @@ Page {
         hoverEnabled: true
         onEntered: {
             root.isIn = true;
-            input.focus = true;
             root.forceActiveFocus();
         }
         onExited: {
             root.isIn = false;
-            input.focus = false;
         }
 
         ColumnLayout {
@@ -83,10 +81,26 @@ Page {
                 Layout.fillHeight: true
             }
 
+            Image {
+                source: "qrc:/image/account.svg"
+                Layout.alignment: Qt.AlignHCenter
+                Layout.preferredHeight: 100
+                Layout.preferredWidth: 100
+            }
+
             Item {
                 Layout.preferredHeight: 30
             }
 
+            TextField {
+                id: user
+                visible: root.isIn
+                Layout.alignment: Qt.AlignHCenter
+                //text: CommandLine.password
+                placeholderText: "User"
+                echoMode: TextInput.Password
+                Layout.preferredWidth: 250
+            }
             TextField {
                 id: input
                 visible: root.isIn
