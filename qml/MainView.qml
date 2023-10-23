@@ -82,7 +82,7 @@ Page {
             }
 
             Image {
-                source: "qrc:/image/account.svg"
+                source: CommandLine.userIcon
                 Layout.alignment: Qt.AlignHCenter
                 Layout.preferredHeight: 100
                 Layout.preferredWidth: 100
@@ -96,9 +96,11 @@ Page {
                 id: user
                 visible: root.isIn
                 Layout.alignment: Qt.AlignHCenter
-                //text: CommandLine.password
+                text: CommandLine.userName
+                onEditingFinished: {
+                    CommandLine.userName = user.text;
+                }
                 placeholderText: "User"
-                echoMode: TextInput.Password
                 Layout.preferredWidth: 250
             }
             TextField {

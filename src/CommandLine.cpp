@@ -22,12 +22,13 @@
 CommandLine::CommandLine(QObject *parent)
   : QObject(parent)
   , m_currentDate(QLocale().toString(QDate::currentDate()))
+  , m_userName(QString())
   , m_backgroundImagePath(QUrl("qrc:/image/gangdamu.png"))
   , m_opacity(0.6)
   , m_greetd(nullptr)
   , m_status(LoginStatus::Start)
+  , m_userIcon(QUrl("qrc:/image/account.svg"))
 {
-    m_userName = QString::fromStdString(getlogin());
     connectToGreetd();
 }
 
@@ -36,6 +37,23 @@ CommandLine::setPassword(const QString &password)
 {
     m_password = password;
     Q_EMIT passwordChanged();
+}
+
+void
+CommandLine::setUserName(const QString &userName)
+{
+    if (m_userName == userName) {
+        return;
+    }
+    m_userName = userName;
+
+    if (auto iconP = QString("/var/lib/AccountsService/icons/%1").arg(m_userName);
+        QFile(iconP).exists()) {
+        m_userIcon = QUrl::fromLocalFile(iconP);
+    } else {
+        m_userIcon = QUrl("qrc:/image/account.svg");
+    }
+    Q_EMIT userIconChanged();
 }
 
 void

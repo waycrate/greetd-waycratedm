@@ -25,6 +25,9 @@ class CommandLine final : public QObject
 public:
     explicit CommandLine(QObject *parent = nullptr);
 
+    Q_PROPERTY(QUrl userIcon READ userIcon NOTIFY userIconChanged)
+    inline QUrl userIcon() { return m_userIcon; }
+
     Q_PROPERTY(QString currentDate READ currentDate NOTIFY currentDateChanged)
     inline QString currentDate() { return m_currentDate; }
 
@@ -32,8 +35,9 @@ public:
     inline QString password() { return m_password; }
     void setPassword(const QString &password);
 
-    Q_PROPERTY(QString userName READ userName NOTIFY userNameChanged)
+    Q_PROPERTY(QString userName READ userName WRITE setUserName NOTIFY userNameChanged)
     inline QString userName() { return m_userName; }
+    void setUserName(const QString &userName);
 
     Q_PROPERTY(QString errorMessage READ errorMessage NOTIFY errorMessageChanged)
     inline QString errorMessage() { return m_errorMessage; }
@@ -55,6 +59,7 @@ signals:
     void usePamChanged();
     void opacityChanged();
     void backgroundChanged();
+    void userIconChanged();
 
 private slots:
     void handleDataRead();
@@ -78,4 +83,5 @@ private:
     double m_opacity;
     QLocalSocket *m_greetd;
     LoginStatus m_status;
+    QUrl m_userIcon;
 };
