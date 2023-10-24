@@ -18,7 +18,6 @@ public:
         QString exec;
     };
 
-
     explicit DesktopModel(QObject *parent = nullptr);
 
     enum DesktopRole
@@ -26,6 +25,21 @@ public:
         Name = Qt::DisplayRole,
         Exec,
     };
+
+    Q_INVOKABLE QVariantMap get(int row) const
+    {
+        QHash<int, QByteArray> names = roleNames();
+        QHashIterator<int, QByteArray> i(names);
+        QVariantMap res;
+        QModelIndex idx = index(row, 0);
+        while (i.hasNext()) {
+            i.next();
+            QVariant data  = idx.data(i.key());
+            res[i.value()] = data;
+        }
+        return res;
+    };
+
     int rowCount(const QModelIndex & = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
@@ -35,4 +49,4 @@ private:
 };
 
 QDebug
-operator<<(QDebug d, const DesktopModel::DesktopInfo&);
+operator<<(QDebug d, const DesktopModel::DesktopInfo &);

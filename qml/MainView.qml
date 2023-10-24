@@ -197,6 +197,14 @@ Page {
                 }
             }
 
+            TextField {
+                placeholderText: "Command"
+                Layout.alignment: Qt.AlignHCenter
+                text: DesktopModel.get(view.currentIndex).exec
+                wrapMode: TextEdit.WordWrap
+                Layout.preferredWidth : 350
+            }
+
             Item {
                 Layout.preferredHeight: 40
             }
