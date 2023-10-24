@@ -1,3 +1,4 @@
+
 #ifndef DEBUG_MODE
 #include <SessionLockQt/command.h>
 #include <SessionLockQt/shell.h>
@@ -8,6 +9,7 @@
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
 #include <QWindow>
+#include <QIcon>
 #include <cstdlib>
 
 int
@@ -19,6 +21,7 @@ main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
     QQuickStyle::setStyle("Material");
+    QIcon::setThemeName("breeze");
     auto screens = QGuiApplication::screens();
 
     QQmlApplicationEngine engine;
