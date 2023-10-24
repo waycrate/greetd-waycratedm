@@ -38,6 +38,17 @@ Page {
         }
     }
 
+    DesktopDialog {
+        id: desktopDialog
+        x: Math.round((root.width - width) / 2)
+        y: Math.round(root.height / 6)
+        width: Math.round(Math.min(root.width, root.height) / 3 * 2)
+        height: root.height / 2
+        onCurrentSelected: index => {
+            view.currentIndex = index;
+        }
+    }
+
     function timeChanged() {
         var date = new Date;
         year = date.getFullYear();
@@ -194,6 +205,9 @@ Page {
 
                 RoundButton {
                     icon.source: "qrc:/image/menu.svg"
+                    onClicked: {
+                        desktopDialog.open();
+                    }
                 }
             }
 
@@ -202,7 +216,7 @@ Page {
                 Layout.alignment: Qt.AlignHCenter
                 text: DesktopModel.get(view.currentIndex).exec
                 wrapMode: TextEdit.WordWrap
-                Layout.preferredWidth : 350
+                Layout.preferredWidth: 350
             }
 
             Item {
