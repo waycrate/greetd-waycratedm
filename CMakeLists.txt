@@ -65,3 +65,7 @@ target_link_libraries(waycratedm
 
 
 install(TARGETS waycratedm DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/sysuser/marine.conf DESTINATION ${CMAKE_INSTALL_LIBDIR}/sysusers.d)
+
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/tmpfiles/marine.conf DESTINATION ${CMAKE_INSTALL_LIBDIR}/tmpfiles.d)
