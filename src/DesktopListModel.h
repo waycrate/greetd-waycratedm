@@ -16,6 +16,7 @@ public:
     {
         QString name;
         QString exec;
+        QString fileName;
     };
 
     explicit DesktopModel(QObject *parent = nullptr);
@@ -24,6 +25,7 @@ public:
     {
         Name = Qt::DisplayRole,
         Exec,
+        FileName,
     };
 
     Q_INVOKABLE QVariantMap get(int row) const

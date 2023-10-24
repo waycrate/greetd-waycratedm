@@ -18,10 +18,9 @@ DesktopModel::DesktopModel(QObject *parent)
                 auto path = QString("%1/%2").arg(dir).arg(desktop);
                 QSettings settings(path, QSettings::IniFormat);
                 settings.beginGroup("Desktop Entry");
-                m_infos.append(DesktopInfo{
-                  .name = settings.value("Name").toString().trimmed(),
-                  .exec = settings.value("Exec").toString().trimmed(),
-                });
+                m_infos.append(DesktopInfo{.name     = settings.value("Name").toString().trimmed(),
+                                           .exec     = settings.value("Exec").toString().trimmed(),
+                                           .fileName = desktop});
             }
         }
     };
@@ -43,6 +42,8 @@ DesktopModel::data(const QModelIndex &index, int role) const
         return m_infos[index.row()].name;
     case Exec:
         return m_infos[index.row()].exec;
+    case FileName:
+        return m_infos[index.row()].fileName;
     default:
         return QVariant();
     }
@@ -51,13 +52,14 @@ DesktopModel::data(const QModelIndex &index, int role) const
 QHash<int, QByteArray>
 DesktopModel::roleNames() const
 {
-    static const QHash<int, QByteArray> roles{{Name, "name"}, {Exec, "exec"}};
+    static const QHash<int, QByteArray> roles{
+      {Name, "name"}, {Exec, "exec"}, {FileName, "fileName"}};
     return roles;
 }
 
 QDebug
 operator<<(QDebug d, const DesktopModel::DesktopInfo &info)
 {
-    d << info.name << info.exec;
+    d << info.name << info.exec << info.fileName;
     return d;
 }

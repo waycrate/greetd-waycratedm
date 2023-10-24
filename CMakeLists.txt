@@ -48,6 +48,8 @@ qt_add_qml_module(waycratedm
     src/CommandLine.cpp
     src/DesktopListModel.h
     src/DesktopListModel.cpp
+    src/Settings.h
+    src/Settings.cpp
   QML_FILES
     qml/main.qml
     qml/TimePanel.qml
