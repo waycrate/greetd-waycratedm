@@ -6,10 +6,10 @@
 #endif
 
 #include <QGuiApplication>
+#include <QIcon>
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
 #include <QWindow>
-#include <QIcon>
 #include <cstdlib>
 
 int
@@ -19,7 +19,9 @@ main(int argc, char *argv[])
     ExtSessionLockV1Qt::Shell::useExtSessionLock();
 #endif
 
+    QGuiApplication::setApplicationName("WayCrateDM");
     QGuiApplication app(argc, argv);
+
     QQuickStyle::setStyle("Material");
     QIcon::setThemeName("breeze");
     auto screens = QGuiApplication::screens();
