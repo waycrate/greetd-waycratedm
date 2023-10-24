@@ -5,19 +5,11 @@
 #endif
 
 #include <QDate>
+#include <QFile>
 #include <QGuiApplication>
+#include <QJsonDocument>
 #include <QLocale>
 #include <QTimer>
-#include <QtConcurrent>
-
-#include <format>
-#include <mutex>
-#include <string>
-#include <toml++/toml.h>
-#include <unistd.h>
-
-#include <sys/socket.h>
-#include <sys/un.h>
 
 CommandLine::CommandLine(QObject *parent)
   : QObject(parent)
