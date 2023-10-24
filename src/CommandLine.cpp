@@ -55,6 +55,7 @@ CommandLine::setUserName(const QString &userName)
         m_userIcon = QUrl("qrc:/image/account.svg");
     }
     Q_EMIT userIconChanged();
+    Q_EMIT userNameChanged();
 }
 
 void
@@ -106,6 +107,8 @@ CommandLine::handleDataRead()
         Q_EMIT errorMessageChanged();
         handleAuthError();
         return;
+    } else if (authtype == "success") {
+        handleSuccessed();
     }
 }
 
@@ -134,8 +137,8 @@ CommandLine::handleSuccessed()
         QVariantMap request;
 
         request["type"] = "start_session";
-        request["cmd"]  = m_command;
-        request["env"]  = QJsonArray();
+        request["cmd"]  = m_command.split(' ');
+        request["env"]  = QStringList();
         QJsonDocument json;
 
         json.setObject(QJsonObject::fromVariantMap(request));
