@@ -9,5 +9,6 @@
         <file>image/clock-night.png</file>
         <file>image/gangdamu.png</file>
         <file>image/account.svg</file>
+        <file>image/menu.svg</file>
     </qresource>
 </RCC>

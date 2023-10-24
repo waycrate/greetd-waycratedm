@@ -180,13 +180,21 @@ Page {
                     }
                 }
             }
-            PageIndicator {
-                id: indicator
+            RowLayout {
                 Layout.alignment: Qt.AlignHCenter
-                Layout.preferredWidth: 100
+                spacing: 5
 
-                count: view.count
-                currentIndex: view.currentIndex
+                PageIndicator {
+                    id: indicator
+                    Layout.alignment: Qt.AlignHCenter
+
+                    count: view.count
+                    currentIndex: view.currentIndex
+                }
+
+                RoundButton {
+                    icon.source: "qrc:/image/menu.svg"
+                }
             }
 
             Item {
