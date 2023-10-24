@@ -39,6 +39,10 @@ public:
     inline QString userName() { return m_userName; }
     void setUserName(const QString &userName);
 
+    Q_PROPERTY(QString command READ command WRITE setCommand NOTIFY commandChanged)
+    inline QString command() { return m_command; }
+    void setCommand(const QString &command);
+
     Q_PROPERTY(QString errorMessage READ errorMessage NOTIFY errorMessageChanged)
     inline QString errorMessage() { return m_errorMessage; }
 
@@ -60,6 +64,7 @@ signals:
     void opacityChanged();
     void backgroundChanged();
     void userIconChanged();
+    void commandChanged();
 
 private slots:
     void handleDataRead();
@@ -84,4 +89,5 @@ private:
     QLocalSocket *m_greetd;
     LoginStatus m_status;
     QUrl m_userIcon;
+    QString m_command;
 };

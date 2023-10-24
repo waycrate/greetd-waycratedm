@@ -155,10 +155,6 @@ Page {
                 Layout.fillHeight: true
             }
 
-            Item {
-                Layout.preferredHeight: 40
-            }
-
             RowLayout {
                 Layout.alignment: Qt.AlignHCenter
                 Button {
@@ -180,6 +176,9 @@ Page {
                         Button {
                             text: name
                         }
+                    }
+                    onCurrentIndexChanged: {
+                        CommandLine.command = DesktopModel.get(view.currentIndex).exec;
                     }
                 }
                 Button {
@@ -213,9 +212,13 @@ Page {
             }
 
             TextField {
+                id: commandField
                 placeholderText: "Command"
                 Layout.alignment: Qt.AlignHCenter
-                text: DesktopModel.get(view.currentIndex).exec
+                text: CommandLine.command
+                onEditingFinished : {
+                    CommandLine.command = commandField.text
+                }
                 wrapMode: TextEdit.WordWrap
                 Layout.preferredWidth: 350
             }

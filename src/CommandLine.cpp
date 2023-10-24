@@ -28,6 +28,7 @@ CommandLine::CommandLine(QObject *parent)
   , m_greetd(nullptr)
   , m_status(LoginStatus::Start)
   , m_userIcon(QUrl("qrc:/image/account.svg"))
+  , m_command(QString())
 {
     connectToGreetd();
 }
@@ -54,6 +55,13 @@ CommandLine::setUserName(const QString &userName)
         m_userIcon = QUrl("qrc:/image/account.svg");
     }
     Q_EMIT userIconChanged();
+}
+
+void
+CommandLine::setCommand(const QString &command)
+{
+    m_command = command;
+    Q_EMIT commandChanged();
 }
 
 void
@@ -126,7 +134,7 @@ CommandLine::handleSuccessed()
         QVariantMap request;
 
         request["type"] = "start_session";
-        request["cmd"]  = "xxxxx";
+        request["cmd"]  = m_command;
         request["env"]  = QJsonArray();
         QJsonDocument json;
 
@@ -188,7 +196,7 @@ CommandLine::tryLogin()
     QVariantMap request;
 
     request["type"]     = "create_session";
-    request["username"] = "testAccount";
+    request["username"] = m_userName;
     QJsonDocument json;
 
     json.setObject(QJsonObject::fromVariantMap(request));
