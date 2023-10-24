@@ -21,6 +21,7 @@ CommandLine::CommandLine(QObject *parent)
   , m_status(LoginStatus::Start)
   , m_userIcon(QUrl("qrc:/image/account.svg"))
   , m_command(QString())
+  , m_isAuthing(false)
 {
     connectToGreetd();
 }
@@ -139,7 +140,6 @@ CommandLine::handleSuccessed()
     }
     case TryToStartSession: {
         m_status = LoginSuccessed;
-        UnLock();
     }
     default:
         break;
@@ -157,12 +157,16 @@ CommandLine::handleAuthError()
 
     json.setObject(QJsonObject::fromVariantMap(request));
     roundtrip(json.toJson().simplified());
+    m_isAuthing = false;
+    Q_EMIT isAuthingChanged();
 }
 
 void
 CommandLine::handleAuthPasswordMessage()
 {
-    m_status = LoginStatus::TryToLoginSession;
+    m_status    = LoginStatus::TryToLoginSession;
+    m_isAuthing = true;
+    Q_EMIT isAuthingChanged();
     QVariantMap request;
 
     request["type"]     = "post_auth_message_response";
@@ -208,7 +212,7 @@ CommandLine::roundtrip(const QString &payload)
 }
 
 void
-CommandLine::RequestUnlock()
+CommandLine::RequestLogin()
 {
     if (m_password.isEmpty()) {
         m_errorMessage = "password is needed";

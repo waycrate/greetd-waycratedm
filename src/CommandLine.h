@@ -52,8 +52,11 @@ public:
     Q_PROPERTY(double opacity READ opacity NOTIFY opacityChanged)
     inline double opacity() { return m_opacity; }
 
+    Q_PROPERTY(bool isAuthing READ isAuthing NOTIFY isAuthingChanged)
+    inline bool isAuthing() { return m_isAuthing; }
+
     Q_INVOKABLE void UnLock();
-    Q_INVOKABLE void RequestUnlock();
+    Q_INVOKABLE void RequestLogin();
 
 signals:
     void currentDateChanged();
@@ -65,6 +68,7 @@ signals:
     void backgroundChanged();
     void userIconChanged();
     void commandChanged();
+    void isAuthingChanged();
 
 private slots:
     void handleDataRead();
@@ -90,4 +94,5 @@ private:
     LoginStatus m_status;
     QUrl m_userIcon;
     QString m_command;
+    bool m_isAuthing;
 };

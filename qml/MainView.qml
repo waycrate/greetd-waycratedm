@@ -105,6 +105,7 @@ Page {
 
             TextField {
                 id: user
+                enabled: !CommandLine.isAuthing
                 visible: root.isIn
                 Layout.alignment: Qt.AlignHCenter
                 text: CommandLine.userName
@@ -117,6 +118,7 @@ Page {
 
             TextField {
                 id: input
+                enabled: !CommandLine.isAuthing
                 visible: root.isIn
                 Layout.alignment: Qt.AlignHCenter
                 text: CommandLine.password
@@ -127,7 +129,10 @@ Page {
                 echoMode: TextInput.Password
                 Layout.preferredWidth: 250
                 onAccepted: {
-                    CommandLine.RequestUnlock();
+                    if (CommandLine.isAuthing) {
+                        return;
+                    }
+                    CommandLine.RequestLogin();
                 }
             }
 
@@ -141,13 +146,17 @@ Page {
 
             RoundButton {
                 id: loginBtn
+                enabled: !CommandLine.isAuthing
                 visible: root.isIn
                 implicitWidth: 60
                 implicitHeight: 60
                 Layout.alignment: Qt.AlignHCenter
                 icon.name: "unlock"
                 onClicked: {
-                    CommandLine.RequestUnlock();
+                    if (CommandLine.isAuthing) {
+                        return;
+                    }
+                    CommandLine.RequestLogin();
                 }
             }
 
@@ -216,8 +225,8 @@ Page {
                 placeholderText: "Command"
                 Layout.alignment: Qt.AlignHCenter
                 text: CommandLine.command
-                onEditingFinished : {
-                    CommandLine.command = commandField.text
+                onEditingFinished: {
+                    CommandLine.command = commandField.text;
                 }
                 wrapMode: TextEdit.WordWrap
                 Layout.preferredWidth: 350
