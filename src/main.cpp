@@ -19,6 +19,7 @@ main(int argc, char *argv[])
     ExtSessionLockV1Qt::Shell::useExtSessionLock();
 #endif
 
+    QGuiApplication::setOrganizationName("waycrate");
     QGuiApplication::setApplicationName("WayCrateDM");
     QGuiApplication app(argc, argv);
 

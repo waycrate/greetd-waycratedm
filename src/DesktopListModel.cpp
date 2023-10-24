@@ -57,6 +57,21 @@ DesktopModel::roleNames() const
     return roles;
 }
 
+int
+DesktopModel::get_currentIndex(const QString &name)
+{
+    if (m_infos.length() == 0) {
+        return -1;
+    }
+    int index = 0;
+    for (const DesktopInfo &info : m_infos) {
+        if (info.name == name) {
+            return index;
+        }
+        index++;
+    }
+    return 0;
+}
 QDebug
 operator<<(QDebug d, const DesktopModel::DesktopInfo &info)
 {

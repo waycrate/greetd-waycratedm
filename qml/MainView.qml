@@ -156,6 +156,7 @@ Page {
                     if (CommandLine.isAuthing) {
                         return;
                     }
+                    Settings.setStartSession(DesktopModel.get(view.currentIndex).name);
                     CommandLine.RequestLogin();
                 }
             }
@@ -186,6 +187,7 @@ Page {
                             text: name
                         }
                     }
+                    currentIndex: DesktopModel.get_currentIndex(Settings.startSession())
                     onCurrentIndexChanged: {
                         CommandLine.command = DesktopModel.get(view.currentIndex).exec;
                     }

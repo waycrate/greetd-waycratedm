@@ -42,6 +42,8 @@ public:
         return res;
     };
 
+    Q_INVOKABLE int get_currentIndex(const QString &desktopFile);
+
     int rowCount(const QModelIndex & = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
