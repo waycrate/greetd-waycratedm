@@ -43,7 +43,7 @@ Page {
         x: Math.round((root.width - width) / 2)
         y: Math.round(root.height / 6)
         width: Math.round(Math.min(root.width, root.height) / 3 * 2)
-        height: root.height / 2
+        height: root.height * 2 / 3
         onCurrentSelected: index => {
             view.currentIndex = index;
         }
@@ -172,8 +172,9 @@ Page {
                 }
                 SwipeView {
                     id: view
+                    clip: true
                     spacing: 10
-
+                    Layout.preferredWidth: 250
                     Repeater {
                         model: DesktopModel
                         Button {

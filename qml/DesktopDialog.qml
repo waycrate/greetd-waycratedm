@@ -7,6 +7,7 @@ Dialog {
     signal currentSelected(int index)
     ListView {
         anchors.fill: parent
+        clip: true
         model: DesktopModel
         delegate: Button {
             width: ListView.view.width
