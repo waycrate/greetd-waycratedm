@@ -15,6 +15,8 @@ Page {
     property int hours
     property int minutes
 
+    signal switchToSetting
+
     function leftPad(number) {
         var output = number + '';
         while (output.length < 2) {
@@ -81,6 +83,21 @@ Page {
                 Layout.preferredHeight: 30
             }
 
+            RowLayout {
+                Layout.fillWidth: true
+                Item {
+                    Layout.fillWidth: true
+                }
+                RoundButton {
+                    icon.source: "qrc:/image/setting.svg"
+                    onClicked: {
+                        root.switchToSetting();
+                    }
+                }
+                Item {
+                    Layout.preferredWidth: 10
+                }
+            }
             Label {
                 text: CommandLine.currentDate
                 Layout.alignment: Qt.AlignHCenter
@@ -157,7 +174,7 @@ Page {
                         return;
                     }
                     Settings.setStartSession(DesktopModel.get(view.currentIndex).name);
-                    Settings.setStartUser(user.text)
+                    Settings.setStartUser(user.text);
                     CommandLine.RequestLogin();
                 }
             }
