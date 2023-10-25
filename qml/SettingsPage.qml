@@ -5,8 +5,8 @@ Page {
     id: settings
     signal switchBackMainPage
     Column {
-
-        Button {
+        RoundButton {
+            icon.name: "go-previous"
             onClicked: {
                 settings.switchBackMainPage();
             }
