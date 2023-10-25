@@ -55,6 +55,7 @@ qt_add_qml_module(waycratedm
     qml/TimePanel.qml
     qml/MainView.qml
     qml/DesktopDialog.qml
+    qml/SettingsPage.qml
 )
 
 target_link_libraries(waycratedm

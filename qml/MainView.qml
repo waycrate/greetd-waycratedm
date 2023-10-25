@@ -5,7 +5,7 @@ import WayCrateDM
 
 Page {
     id: root
-    anchors.fill: parent
+
     property bool isIn: false
 
     property int year
