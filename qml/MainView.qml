@@ -163,6 +163,7 @@ Page {
 
             RoundButton {
                 id: loginBtn
+                highlighted: true
                 enabled: !CommandLine.isAuthing
                 visible: root.isIn
                 implicitWidth: 60
