@@ -9,6 +9,7 @@
 #include <QGuiApplication>
 #include <QJsonDocument>
 #include <QLocale>
+#include <QSettings>
 #include <QTimer>
 
 CommandLine::CommandLine(QObject *parent)
@@ -23,6 +24,11 @@ CommandLine::CommandLine(QObject *parent)
   , m_command(QString())
   , m_isAuthing(false)
 {
+    QSettings setting;
+    QString user = setting.value("user").toString();
+    if (!user.isEmpty()) {
+        setUserName(user);
+    }
     connectToGreetd();
 }
 

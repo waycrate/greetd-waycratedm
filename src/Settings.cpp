@@ -17,3 +17,9 @@ Settings::setStartSession(const QString &sessionName)
 {
     m_setting.setValue("session", sessionName);
 }
+
+void
+Settings::setStartUser(const QString &user)
+{
+    m_setting.setValue("user", user);
+}

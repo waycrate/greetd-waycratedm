@@ -157,6 +157,7 @@ Page {
                         return;
                     }
                     Settings.setStartSession(DesktopModel.get(view.currentIndex).name);
+                    Settings.setStartUser(user.text)
                     CommandLine.RequestLogin();
                 }
             }

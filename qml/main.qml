@@ -1,10 +1,12 @@
 import QtQuick
 import WayCrateDM
+import QtQuick.Controls
 
 Window {
     id: w
-
-    MainView {
+    StackView {
         anchors.fill: parent
+        initialItem: MainView {
+        }
     }
 }
