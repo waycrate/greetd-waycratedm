@@ -1,4 +1,5 @@
 import QtQuick.Controls
+import QtQuick.Layouts
 import QtQuick
 import WayCrateDM
 
@@ -20,7 +21,27 @@ Page {
                 width: ListView.view.width
                 text: name
                 onClicked: {
+                    DesktopConfigModel.insertData(name);
                     desktopDialog.close();
+                }
+            }
+        }
+    }
+
+    ColumnLayout {
+        anchors.fill: parent
+        Item {
+            Layout.preferredHeight: 40
+        }
+        ListView {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            clip: true
+            model: DesktopConfigModel
+            delegate: Button {
+                width: ListView.view.width
+                text: name
+                onClicked: {
                 }
             }
         }
