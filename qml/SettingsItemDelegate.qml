@@ -5,11 +5,11 @@ import QtQuick
 ItemDelegate {
     id: root
     width: parent ? parent.width : 100
-    signal requestRemoveIndex(index: int);
+    signal requestRemoveIndex(int index)
     contentItem: ColumnLayout {
         id: delegateTop
         function removeEnv(value: string) {
-            model.envs = Array.from(envs).filter(r => r!== value)
+            model.envs = Array.from(envs).filter(r => r !== value);
         }
         RowLayout {
             Label {
@@ -22,7 +22,7 @@ ItemDelegate {
             RoundButton {
                 text: "x"
                 onClicked: {
-                    root.requestRemoveIndex(index)
+                    root.requestRemoveIndex(index);
                 }
             }
         }
@@ -57,6 +57,7 @@ ItemDelegate {
                 }
                 newmodel.push(envField.text);
                 model.envs = newmodel;
+                envField.text = "";
             }
         }
         ColumnLayout {
@@ -74,7 +75,7 @@ ItemDelegate {
                     RoundButton {
                         text: "x"
                         onClicked: {
-                            delegateTop.removeEnv(modelData)
+                            delegateTop.removeEnv(modelData);
                         }
                     }
                 }

@@ -13,7 +13,7 @@ Dialog {
             width: ListView.view.width
             text: name
             onClicked: {
-                currentSelected(index)
+                currentSelected(index);
                 desktopDialog.close();
             }
         }
