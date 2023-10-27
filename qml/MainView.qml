@@ -60,6 +60,20 @@ Page {
         minutes = date.getMinutes();
     }
 
+    function login() {
+        if (CommandLine.isAuthing) {
+            return;
+        }
+        var currentDesktop = DesktopModel.get(view.currentIndex).name;
+        if (DesktopConfigModel.dataIsExist(currentDesktop)) {
+            var envs = DesktopConfigModel.getFromName(currentDesktop).envs;
+            CommandLine.env = envs;
+        }
+        Settings.setStartSession(DesktopModel.get(view.currentIndex).name);
+        Settings.setStartUser(user.text);
+        CommandLine.RequestLogin();
+    }
+
     TimePanel {
         x: 30
         y: 30
@@ -146,15 +160,7 @@ Page {
                 echoMode: TextInput.Password
                 Layout.preferredWidth: 250
                 onAccepted: {
-                    if (CommandLine.isAuthing) {
-                        return;
-                    }
-                    var currentDesktop = DesktopModel.get(view.currentIndex).name;
-                    if (DesktopConfigModel.dataIsExist(currentDesktop)) {
-                        var envs = DesktopConfigModel.getFromName(currentDesktop).envs;
-                        CommandLine.env = envs;
-                    }
-                    CommandLine.RequestLogin();
+                    root.login();
                 }
             }
 
@@ -176,17 +182,7 @@ Page {
                 Layout.alignment: Qt.AlignHCenter
                 icon.name: "unlock"
                 onClicked: {
-                    if (CommandLine.isAuthing) {
-                        return;
-                    }
-                    var currentDesktop = DesktopModel.get(view.currentIndex).name;
-                    if (DesktopConfigModel.dataIsExist(currentDesktop)) {
-                        var envs = DesktopConfigModel.getFromName(currentDesktop).envs;
-                        CommandLine.env = envs;
-                    }
-                    Settings.setStartSession(DesktopModel.get(view.currentIndex).name);
-                    Settings.setStartUser(user.text);
-                    CommandLine.RequestLogin();
+                    root.login();
                 }
             }
 
