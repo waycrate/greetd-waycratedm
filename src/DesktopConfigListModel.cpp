@@ -1,3 +1,10 @@
+// Unit for desktop config
+// { name: string,
+//   hasAlias: bool,
+//   alias: string,
+//   envs: [string]
+// }
+
 #include "DesktopConfigListModel.h"
 #include <algorithm>
 
@@ -26,19 +33,20 @@ DesktopConfigModel::setData(const QModelIndex &index, const QVariant &value, int
     switch (role) {
     case Name:
         m_configs[index.row()].name = value.toString();
-        return true;
+        break;
     case HasAlias:
         m_configs[index.row()].hasAlias = value.toBool();
-        return true;
+        break;
     case ExecAlias:
         m_configs[index.row()].execAlias = value.toString();
-        return true;
+        break;
     case Envs:
         m_configs[index.row()].envs = value.toStringList();
-        return true;
+        break;
     default:
         return false;
     }
+    return true;
 }
 
 QVariant

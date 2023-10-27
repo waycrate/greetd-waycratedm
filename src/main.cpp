@@ -1,4 +1,3 @@
-
 #ifndef DEBUG_MODE
 #include <SessionLockQt/command.h>
 #include <SessionLockQt/shell.h>
