@@ -42,6 +42,9 @@ private:
 
     bool dataIsExist(const QString &desktop) const;
 
+    void get_file_config();
+    void save_file_config();
+
 private:
     QList<DesktopConfig> m_configs;
 };
