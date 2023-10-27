@@ -15,6 +15,7 @@ public:
     struct DesktopConfig
     {
         QString name;
+        bool hasAlias;
         QString execAlias;
         QStringList envs;
     };
@@ -23,11 +24,16 @@ public:
     enum DesktopConfigRole
     {
         Name = Qt::DisplayRole,
+        HasAlias,
         ExecAlias,
         Envs
     };
 
     Q_INVOKABLE void insertData(const QString &desktop);
+    Q_INVOKABLE bool
+    setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
+
+    Q_INVOKABLE void remove(int row);
 
 private:
     int rowCount(const QModelIndex & = QModelIndex()) const override;

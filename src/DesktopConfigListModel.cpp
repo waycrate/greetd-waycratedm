@@ -15,8 +15,30 @@ DesktopConfigModel::rowCount(const QModelIndex &index) const
 QHash<int, QByteArray>
 DesktopConfigModel::roleNames() const
 {
-    static const QHash<int, QByteArray> roles{{Name, "name"}, {ExecAlias, "exec"}, {Envs, "envs"}};
+    static const QHash<int, QByteArray> roles{
+      {Name, "name"}, {HasAlias, "hasAlias"}, {ExecAlias, "execAlias"}, {Envs, "envs"}};
     return roles;
+}
+
+bool
+DesktopConfigModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    switch (role) {
+    case Name:
+        m_configs[index.row()].name = value.toString();
+        return true;
+    case HasAlias:
+        m_configs[index.row()].hasAlias = value.toBool();
+        return true;
+    case ExecAlias:
+        m_configs[index.row()].execAlias = value.toString();
+        return true;
+    case Envs:
+        m_configs[index.row()].envs = value.toStringList();
+        return true;
+    default:
+        return false;
+    }
 }
 
 QVariant
@@ -25,6 +47,8 @@ DesktopConfigModel::data(const QModelIndex &index, int role) const
     switch (role) {
     case Name:
         return m_configs[index.row()].name;
+    case HasAlias:
+        return m_configs[index.row()].hasAlias;
     case ExecAlias:
         return m_configs[index.row()].execAlias;
     case Envs:
@@ -49,6 +73,18 @@ DesktopConfigModel::insertData(const QString &desktop)
         return;
     }
     beginInsertRows(QModelIndex(), m_configs.length(), m_configs.length());
-    m_configs.push_back(DesktopConfig{.name = desktop, .execAlias = "", .envs = {}});
+    m_configs.push_back(
+      DesktopConfig{.name = desktop, .hasAlias = false, .execAlias = "", .envs = {}});
     endInsertRows();
+}
+
+void
+DesktopConfigModel::remove(int row)
+{
+    if (row < 0 || row >= m_configs.count())
+        return;
+
+    beginRemoveRows(QModelIndex(), row, row);
+    m_configs.removeAt(row);
+    endRemoveRows();
 }

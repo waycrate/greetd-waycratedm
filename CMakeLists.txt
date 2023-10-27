@@ -58,6 +58,7 @@ qt_add_qml_module(waycratedm
     qml/MainView.qml
     qml/DesktopDialog.qml
     qml/SettingsPage.qml
+    qml/SettingsItemDelegate.qml
 )
 
 target_link_libraries(waycratedm

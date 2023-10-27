@@ -31,17 +31,17 @@ Page {
     ColumnLayout {
         anchors.fill: parent
         Item {
-            Layout.preferredHeight: 40
+            Layout.preferredHeight: 50
         }
         ListView {
+            id: desktopView
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
             model: DesktopConfigModel
-            delegate: Button {
-                width: ListView.view.width
-                text: name
-                onClicked: {
+            delegate: SettingsItemDelegate {
+                onRequestRemoveIndex: index => {
+                    DesktopConfigModel.remove(index);
                 }
             }
         }
