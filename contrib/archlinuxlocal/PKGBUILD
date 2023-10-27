@@ -1,8 +1,7 @@
-_pkgname=waycratelock
-pkgname=waycratelock-git
+pkgname=greetd-waycratedm
 pkgver=r43.d9f3b05
 pkgrel=1
-pkgdesc="waycratelock"
+pkgdesc="qml desktop manager for greetd"
 url="https://github.com/waycrate/waycratelock"
 arch=('x86_64' 'aarch64')
 license=('GPL')
