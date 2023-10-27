@@ -43,6 +43,10 @@ public:
     inline QString command() { return m_command; }
     void setCommand(const QString &command);
 
+    Q_PROPERTY(QStringList env READ env WRITE setEnv NOTIFY envChanged)
+    inline QStringList env() { return m_env; }
+    void setEnv(const QStringList &env);
+
     Q_PROPERTY(QString errorMessage READ errorMessage NOTIFY errorMessageChanged)
     inline QString errorMessage() { return m_errorMessage; }
 
@@ -69,6 +73,7 @@ signals:
     void userIconChanged();
     void commandChanged();
     void isAuthingChanged();
+    void envChanged();
 
 private slots:
     void handleDataRead();
@@ -95,4 +100,5 @@ private:
     QUrl m_userIcon;
     QString m_command;
     bool m_isAuthing;
+    QStringList m_env;
 };

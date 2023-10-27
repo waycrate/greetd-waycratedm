@@ -149,6 +149,11 @@ Page {
                     if (CommandLine.isAuthing) {
                         return;
                     }
+                    var currentDesktop = DesktopModel.get(view.currentIndex).name;
+                    if (DesktopConfigModel.dataIsExist(currentDesktop)) {
+                        var envs = DesktopConfigModel.getFromName(currentDesktop).envs;
+                        CommandLine.env = envs;
+                    }
                     CommandLine.RequestLogin();
                 }
             }
@@ -173,6 +178,11 @@ Page {
                 onClicked: {
                     if (CommandLine.isAuthing) {
                         return;
+                    }
+                    var currentDesktop = DesktopModel.get(view.currentIndex).name;
+                    if (DesktopConfigModel.dataIsExist(currentDesktop)) {
+                        var envs = DesktopConfigModel.getFromName(currentDesktop).envs;
+                        CommandLine.env = envs;
                     }
                     Settings.setStartSession(DesktopModel.get(view.currentIndex).name);
                     Settings.setStartUser(user.text);
@@ -245,7 +255,17 @@ Page {
                 id: commandField
                 placeholderText: "Command"
                 Layout.alignment: Qt.AlignHCenter
-                text: CommandLine.command
+                text: {
+                    var currentDesktop = DesktopModel.get(view.currentIndex).name;
+                    if (!DesktopConfigModel.dataIsExist(currentDesktop)) {
+                        return CommandLine.command;
+                    }
+                    var map = DesktopConfigModel.getFromName(currentDesktop);
+                    if (!map.hasAlias) {
+                        return CommandLine.command;
+                    }
+                    return map.execAlias;
+                }
                 onEditingFinished: {
                     CommandLine.command = commandField.text;
                 }

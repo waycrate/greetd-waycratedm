@@ -40,7 +40,7 @@ ItemDelegate {
                 Layout.fillWidth: true
                 visible: model.hasAlias
                 text: model.execAlias
-                onEditingFinished: {
+                onAccepted: {
                     model.execAlias = aliasField.text;
                 }
                 placeholderText: "ExecAlias"
