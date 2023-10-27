@@ -23,6 +23,7 @@ CommandLine::CommandLine(QObject *parent)
   , m_userIcon(QUrl("qrc:/image/account.svg"))
   , m_command(QString())
   , m_isAuthing(false)
+  , m_env(QStringList())
 {
     QSettings setting;
     QString user = setting.value("user").toString();
@@ -62,6 +63,13 @@ CommandLine::setCommand(const QString &command)
 {
     m_command = command;
     Q_EMIT commandChanged();
+}
+
+void
+CommandLine::setEnv(const QStringList &env)
+{
+    m_env = env;
+    Q_EMIT envChanged();
 }
 
 void
@@ -137,7 +145,7 @@ CommandLine::handleSuccessed()
 
         request["type"] = "start_session";
         request["cmd"]  = m_command.split(' ');
-        request["env"]  = QStringList();
+        request["env"]  = m_env;
         QJsonDocument json;
 
         json.setObject(QJsonObject::fromVariantMap(request));

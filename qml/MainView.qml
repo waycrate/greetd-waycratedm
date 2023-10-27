@@ -5,7 +5,7 @@ import WayCrateDM
 
 Page {
     id: root
-    anchors.fill: parent
+
     property bool isIn: false
 
     property int year
@@ -14,6 +14,8 @@ Page {
 
     property int hours
     property int minutes
+
+    signal switchToSetting
 
     function leftPad(number) {
         var output = number + '';
@@ -81,6 +83,21 @@ Page {
                 Layout.preferredHeight: 30
             }
 
+            RowLayout {
+                Layout.fillWidth: true
+                Item {
+                    Layout.fillWidth: true
+                }
+                RoundButton {
+                    icon.source: "qrc:/image/setting.svg"
+                    onClicked: {
+                        root.switchToSetting();
+                    }
+                }
+                Item {
+                    Layout.preferredWidth: 10
+                }
+            }
             Label {
                 text: CommandLine.currentDate
                 Layout.alignment: Qt.AlignHCenter
@@ -132,6 +149,11 @@ Page {
                     if (CommandLine.isAuthing) {
                         return;
                     }
+                    var currentDesktop = DesktopModel.get(view.currentIndex).name;
+                    if (DesktopConfigModel.dataIsExist(currentDesktop)) {
+                        var envs = DesktopConfigModel.getFromName(currentDesktop).envs;
+                        CommandLine.env = envs;
+                    }
                     CommandLine.RequestLogin();
                 }
             }
@@ -146,6 +168,7 @@ Page {
 
             RoundButton {
                 id: loginBtn
+                highlighted: true
                 enabled: !CommandLine.isAuthing
                 visible: root.isIn
                 implicitWidth: 60
@@ -156,8 +179,13 @@ Page {
                     if (CommandLine.isAuthing) {
                         return;
                     }
+                    var currentDesktop = DesktopModel.get(view.currentIndex).name;
+                    if (DesktopConfigModel.dataIsExist(currentDesktop)) {
+                        var envs = DesktopConfigModel.getFromName(currentDesktop).envs;
+                        CommandLine.env = envs;
+                    }
                     Settings.setStartSession(DesktopModel.get(view.currentIndex).name);
-                    Settings.setStartUser(user.text)
+                    Settings.setStartUser(user.text);
                     CommandLine.RequestLogin();
                 }
             }
@@ -227,7 +255,17 @@ Page {
                 id: commandField
                 placeholderText: "Command"
                 Layout.alignment: Qt.AlignHCenter
-                text: CommandLine.command
+                text: {
+                    var currentDesktop = DesktopModel.get(view.currentIndex).name;
+                    if (!DesktopConfigModel.dataIsExist(currentDesktop)) {
+                        return CommandLine.command;
+                    }
+                    var map = DesktopConfigModel.getFromName(currentDesktop);
+                    if (!map.hasAlias) {
+                        return CommandLine.command;
+                    }
+                    return map.execAlias;
+                }
                 onEditingFinished: {
                     CommandLine.command = commandField.text;
                 }

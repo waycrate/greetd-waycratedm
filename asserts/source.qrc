@@ -10,5 +10,6 @@
         <file>image/gangdamu.png</file>
         <file>image/account.svg</file>
         <file>image/menu.svg</file>
+        <file>image/setting.svg</file>
     </qresource>
 </RCC>

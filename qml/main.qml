@@ -1,12 +1,21 @@
 import QtQuick
 import WayCrateDM
-import QtQuick.Controls
 
 Window {
     id: w
-    StackView {
+    MainView {
         anchors.fill: parent
-        initialItem: MainView {
+        onSwitchToSetting: {
+            settings.visible = true;
+        }
+    }
+
+    SettingsPage {
+        id: settings
+        anchors.fill: parent
+        visible: false
+        onSwitchBackMainPage: {
+            settings.visible = false;
         }
     }
 }

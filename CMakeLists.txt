@@ -48,6 +48,8 @@ qt_add_qml_module(waycratedm
     src/CommandLine.cpp
     src/DesktopListModel.h
     src/DesktopListModel.cpp
+    src/DesktopConfigListModel.h
+    src/DesktopConfigListModel.cpp
     src/Settings.h
     src/Settings.cpp
   QML_FILES
@@ -55,6 +57,8 @@ qt_add_qml_module(waycratedm
     qml/TimePanel.qml
     qml/MainView.qml
     qml/DesktopDialog.qml
+    qml/SettingsPage.qml
+    qml/SettingsItemDelegate.qml
 )
 
 target_link_libraries(waycratedm
@@ -63,7 +67,7 @@ target_link_libraries(waycratedm
   Qt6::WaylandClient
   Qt6::QuickControls2
   Qt6::Concurrent
-  SessionLockQtInterface)
+  SessionLockQt::Interface)
 
 
 install(TARGETS waycratedm DESTINATION ${CMAKE_INSTALL_BINDIR})
