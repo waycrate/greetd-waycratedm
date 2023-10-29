@@ -260,6 +260,7 @@ Page {
                     if (!map.hasAlias) {
                         return CommandLine.command;
                     }
+                    CommandLine.command = map.execAlias;
                     return map.execAlias;
                 }
                 onEditingFinished: {
