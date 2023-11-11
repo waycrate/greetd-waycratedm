@@ -1,6 +1,16 @@
 # QML greetd dm
 
+[![Packaging status](https://repology.org/badge/vertical-allrepos/greetd-waycratedm.svg)](https://repology.org/project/greetd-waycratedm/versions)
+
 Base on [qt-session-lock](https://github.com/waycrate/qt-session-lock) and greetd, take a lot of reference from qtgreetd
+
+## Install
+
+from aur:
+
+```bash
+paru -S greetd-waycratedm
+```
 
 You can set exec alias (most for gnome, which start way is not the same in desktop, and for sway, if you use nvidia).
 
