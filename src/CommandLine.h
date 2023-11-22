@@ -61,6 +61,7 @@ public:
 
     Q_INVOKABLE void UnLock();
     Q_INVOKABLE void RequestLogin();
+    Q_INVOKABLE void RequestShutDown();
 
 signals:
     void currentDateChanged();

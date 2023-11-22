@@ -31,6 +31,7 @@ Page {
         source: CommandLine.background
         opacity: CommandLine.opacity
     }
+
     Item {
         Timer {
             interval: 100
@@ -304,6 +305,16 @@ Page {
             Item {
                 Layout.preferredHeight: 30
             }
+        }
+    }
+    RoundButton {
+        icon.source: "qrc:/image/system-shutdown.svg"
+        anchors.margins: 20
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        highlighted: true
+        onClicked: {
+            CommandLine.RequestShutDown()
         }
     }
 }

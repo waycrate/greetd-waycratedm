@@ -11,5 +11,6 @@
         <file>image/account.svg</file>
         <file>image/menu.svg</file>
         <file>image/setting.svg</file>
+        <file>image/system-shutdown.svg</file>
     </qresource>
 </RCC>

@@ -4,13 +4,17 @@
 #include <SessionLockQt/command.h>
 #endif
 
+#include <QDBusInterface>
 #include <QDate>
+#include <QDebug>
 #include <QFile>
 #include <QGuiApplication>
 #include <QJsonDocument>
 #include <QLocale>
 #include <QSettings>
 #include <QTimer>
+
+using namespace Qt::StringLiterals;
 
 CommandLine::CommandLine(QObject *parent)
   : QObject(parent)
@@ -234,4 +238,18 @@ CommandLine::RequestLogin()
         return;
     }
     tryLogin();
+}
+
+void
+CommandLine::RequestShutDown()
+{
+    QDBusInterface login1{"org.freedesktop.login1"_L1,
+                          "/org/freedesktop/login1"_L1,
+                          "org.freedesktop.login1.Manager"_L1,
+                          QDBusConnection::systemBus(),
+                          this};
+    auto result = login1.asyncCallWithArgumentList("PowerOff", {true});
+    if (result.isError()) {
+        qWarning() << "Cannot PowerOff" << result.error();
+    }
 }
