@@ -316,5 +316,6 @@ Page {
         onClicked: {
             CommandLine.RequestShutDown()
         }
+        enabled: !CommandLine.isAuthing
     }
 }
