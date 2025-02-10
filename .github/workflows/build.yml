@@ -1,0 +1,41 @@
+name: build bin
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: "build"
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Packages
+        run: |
+          pacman -Syu --noconfirm base-devel git nasm jq ninja cpio wget unzip cmake sudo
+          pacman -Syu --noconfirm qt6-wayland qt6-declarative wayland-protocols tomlplusplus
+      - name: create build user
+        run: |
+          useradd builduser -m # Create the builduser
+          passwd -d builduser # Delete the builduser's password
+          printf 'builduser ALL=(ALL) ALL\n' | tee -a /etc/sudoers # Allow the builduser passwordless sudo
+      - name: Install session-lock
+        run: |
+          chown -R builduser:builduser asserts
+          cd asserts
+          sudo -u builduser makepkg
+          pacman -U --noconfirm *.pkg.tar.zst
+          cd ..
+      - name: Build
+        run: |
+          cmake -B build
+          cmake --build build

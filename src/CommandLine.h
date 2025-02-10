@@ -14,11 +14,11 @@ class CommandLine final : public QObject
     enum LoginStatus
     {
         Start,
-        CreateSessionSuccessed,
+        CreateSessionSuccessded,
         TryToLoginSession,
         TryToStartSession,
-        LoginSuccessed,
-        CancelSessionSuccessed,
+        LoginSuccessded,
+        CancelSessionSuccessded,
         Errored,
     };
 
@@ -82,7 +82,7 @@ private slots:
     void handleAuthMessageNone();
 
     void handleAuthError();
-    void handleSuccessed();
+    void handleSuccessded();
 
 private:
     void connectToGreetd();

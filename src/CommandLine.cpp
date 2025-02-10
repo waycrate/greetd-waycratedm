@@ -119,7 +119,7 @@ CommandLine::handleDataRead()
         handleAuthError();
         return;
     } else if (authtype == "success") {
-        handleSuccessed();
+        handleSuccessded();
     }
 }
 
@@ -136,11 +136,11 @@ CommandLine::handleAuthMessageNone()
 }
 
 void
-CommandLine::handleSuccessed()
+CommandLine::handleSuccessded()
 {
     switch (m_status) {
     case Errored: {
-        m_status = CancelSessionSuccessed;
+        m_status = CancelSessionSuccessded;
         break;
     }
     case TryToLoginSession: {
@@ -157,7 +157,7 @@ CommandLine::handleSuccessed()
         break;
     }
     case TryToStartSession: {
-        m_status = LoginSuccessed;
+        m_status = LoginSuccessded;
     }
     default:
         break;

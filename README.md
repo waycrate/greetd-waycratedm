@@ -6,7 +6,7 @@ Base on [qt-session-lock](https://github.com/waycrate/qt-session-lock) and greet
 
 You can set exec alias (most for gnome, which start way is not the same in desktop, and for sway, if you use nvidia).
 
-And can set environment variables for every desktop. Like sway, which need to set `XDG_CURRENT_DESKTOP`, and gnome, who won't set `XDG_SESSION_TYPE` for you. This variables only setted when you enter this desktop, but you do not want to set these for others, you can try this project.
+And can set environment variables for every desktop. Like sway, which need to set `XDG_CURRENT_DESKTOP`, and gnome, who won't set `XDG_SESSION_TYPE` for you. This variables only set when you enter this desktop, but you do not want to set these for others, you can try this project.
 
 The package of waycratedm will create a user called `marine_greeter`, who has a home under /var/lib/marine, You need to let greetd start waycratedm with that user, then it can work in good, way, and you can also start it with user like `sddm` or `gdm` who already has its home.
 

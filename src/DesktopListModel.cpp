@@ -6,15 +6,15 @@
 DesktopModel::DesktopModel(QObject *parent)
   : QAbstractListModel(parent)
 {
-    QStringList entrys;
-    auto searchSessions = [&entrys, this](const QString &dir) {
+    QStringList entries;
+    auto searchSessions = [&entries, this](const QString &dir) {
         if (auto entryDir = QDir(dir); entryDir.exists()) {
             QStringList desktops = entryDir.entryList({"*.desktop"}, QDir::Files);
             for (QString &desktop : desktops) {
-                if (entrys.contains(desktop)) {
+                if (entries.contains(desktop)) {
                     continue;
                 }
-                entrys.push_back(desktop);
+                entries.push_back(desktop);
                 auto path = QString("%1/%2").arg(dir).arg(desktop);
                 QSettings settings(path, QSettings::IniFormat);
                 settings.beginGroup("Desktop Entry");
