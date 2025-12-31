@@ -40,7 +40,11 @@ DesktopConfigModel::get_file_config()
     if (!file.exists() && !file.isReadable()) {
         return;
     }
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    auto succeeded = file.open(QIODevice::ReadOnly | QIODevice::Text);
+    // NOTE: check if it succeeded
+    if (!succeeded) {
+        return;
+    }
     auto bytes             = file.readAll();
     QJsonDocument document = QJsonDocument::fromJson(bytes);
     auto arrays            = document.array();
