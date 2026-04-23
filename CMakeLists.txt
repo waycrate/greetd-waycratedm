@@ -24,7 +24,8 @@ endif ()
 
 include(GNUInstallDirs)
 
-find_package(Qt6 COMPONENTS Quick QuickControls2 Concurrent WaylandClient DBus REQUIRED)
+find_package(Qt6 COMPONENTS Quick QuickControls2 Concurrent WaylandClient DBus
+             WaylandClientPrivate REQUIRED)
 
 find_package(tomlplusplus REQUIRED)
 find_package(SessionLockQt REQUIRED)
@@ -73,6 +74,8 @@ target_link_libraries(waycratedm
 
 install(TARGETS waycratedm DESTINATION ${CMAKE_INSTALL_BINDIR})
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/sysuser/marine.conf DESTINATION ${CMAKE_INSTALL_LIBDIR}/sysusers.d)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/sysuser/marine.conf DESTINATION
+        ${CMAKE_INSTALL_LIBDIR}/sysusers.d)
 
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/tmpfiles/marine.conf DESTINATION ${CMAKE_INSTALL_LIBDIR}/tmpfiles.d)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/misc/tmpfiles/marine.conf DESTINATION
+        ${CMAKE_INSTALL_LIBDIR}/tmpfiles.d)

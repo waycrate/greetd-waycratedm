@@ -1,6 +1,5 @@
 #ifndef DEBUG_MODE
 #include <SessionLockQt/command.h>
-#include <SessionLockQt/shell.h>
 #include <SessionLockQt/window.h>
 #endif
 
@@ -16,10 +15,6 @@ using namespace Qt::StringLiterals;
 int
 main(int argc, char *argv[])
 {
-#ifndef DEBUG_MODE
-    ExtSessionLockV1Qt::Shell::useExtSessionLock();
-#endif
-
     QGuiApplication::setOrganizationName("waycrate");
     QGuiApplication::setApplicationName("WayCrateDM");
     QGuiApplication app(argc, argv);
